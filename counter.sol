@@ -22,4 +22,9 @@ contract Counter {
         require(msg.value == 1 wei, "1 Wei");
         value = value + 1;
     }
+
+    function withdraw() public {
+        require(msg.sender == owner);
+        payable (owner).transfer(address(this).balance);
+    }
 }
