@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: GPL-MIT
 pragma solidity ^0.8.26;
 
-contract Counter {
+import "./ownable.sol";
+
+contract Counter is Ownable{
     uint private value = 0;
-    address public  owner;
 
-    constructor() {
-        owner = msg.sender;
-    }
+    event Reset(address owner, uint currentValue);
 
-    function reset() public {
-        require(msg.sender == owner);
+    function reset() public onlyOwner{
+        emit Reset(msg.sender, value);
         value = 0;
     }
     
@@ -23,8 +22,7 @@ contract Counter {
         value = value + 1;
     }
 
-    function withdraw() public {
-        require(msg.sender == owner);
+    function withdraw() public onlyOwner{
         payable (owner).transfer(address(this).balance);
     }
 }
