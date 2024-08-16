@@ -51,13 +51,25 @@ contract TaeHoonWrappedEther {
         return allowances[owner][spender];
     }
 
-    function deposit() public returns (bool success) {
+    function deposit() public payable returns (bool success) {
         address owner = msg.sender;
         uint amount = msg.value;
 
         balances[owner] += amount;
         totalSupply += amount;
         emit Transfer(address(0), owner, amount);
+
+        return true;
+    }
+
+    function withdraw(uint amount) public returns (bool success) {
+        address owner = msg.sender;
+        //require(balances[owner] >= amount);
+        balances[owner] -= amount;
+        totalSupply -= amount;
+        emit Transfer(owner, address(0), amount);
+
+        payable(owner).transfer(amount);
 
         return true;
     }
