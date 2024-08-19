@@ -3,7 +3,7 @@ pragma solidity ^0.8.26;
 
 contract TaeHoonWrappedEther {
     string public name = "TaeHoon Wrapped Ether";
-    string public symbol = "thWETH";
+    string public symbol = "jthWETH";
     uint public  decimals = 18;
     uint public totalSupply = 0;
 
